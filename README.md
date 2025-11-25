@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="/assets/github-header-banner.png" width="100%">
+
+</p>
 <div align="center">
 
 # 🏥 **AI-Assisted Structured Reporting System for Radiology**  
