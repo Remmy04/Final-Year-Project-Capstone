@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Dashboard | Dr. Echo</title>
+
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="container">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html">Report Templates</a></li>
+                <li><a href="../html/about.html">About us</a></li>
+                <li><a href="../html/chatbot.html">Echo</a></li>
+                <li><a href="../html/profile.html" class="active">Profile</a></li>
+            </ul>
+
+            <a id="navLogin" href="../html/login.html" class="auth-button">Register / Log in</a>
+            <a id="navLogout" href="../html/logout.html" class="auth-button" style="display:none;">Logout</a>
+        </nav>
+    </header>
+</div>
+
+<!-- MAIN PROFILE DASHBOARD -->
+<div class="dashboard-container">
+
+    <div class="profile-header-container">
+
+        <!-- LEFT COLUMN -->
+        <div class="main-content-left">
+
+            <!-- OVERVIEW CARD -->
+            <div class="card overview-card">
+                <div class="main-info-row">
+                    <div class="profile-id-group">
+
+                        <div class="profile-image-wrapper">
+                            <img id="profilePhoto" 
+                                 src="../imgs/default_profilePic.jpg" 
+                                 alt="Profile Picture"
+                                 class="profile-image-placeholder">
+                            <input type="file" id="photoInput" accept="image/*" style="display:none;">
+                        </div>
+
+                        <div class="profile-details">
+                            <h1 id="profileName">Loading...</h1>
+                            <p id="profileTitleLine">Please wait, your profile is loading</p>
+                            <div class="license-info">
+                                License ID: <span id="profileLicense">-</span>
+                                <span id="licenseBadge" class="verification-badge unverified">Not Verified</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="btn-settings" id="btnSettings">
+                            Settings
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div class="settings-dropdown" id="settingsDropdown">
+                            <button id="btnOpenEditModal">Edit Profile</button>
+                            <button id="btnChangePassword">Change Password</button>
+                            <hr>
+                            <button id="btnDeleteAccount" style="color:#dc2626;">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="profileLoading" style="text-align:center; padding:40px; display:none;">
+                <p>Loading your profile...</p>
+            </div>
+
+            <!-- DETAILS CARD -->
+            <div class="card details-grid-card">
+
+                <h3 class="grid-section-title">Personal & Contact Details</h3>
+
+                <div class="data-grid">
+                    <div class="data-grid-item">
+                        <div class="label">Email Address</div>
+                        <div class="value" id="detailEmail">-</div>
+                    </div>
+
+                    <div class="data-grid-item">
+                        <div class="label">Phone Number</div>
+                        <div class="value" id="detailPhone">-</div>
+                    </div>
+
+                    <div class="data-grid-item">
+                        <div class="label">Date of Birth</div>
+                        <div class="value" id="detailDob">-</div>
+                    </div>
+
+                    <div class="data-grid-item">
+                        <div class="label">Age</div>
+                        <div class="value" id="detailAge">-</div>
+                    </div>
+
+                    <div class="data-grid-item">
+                        <div class="label">Gender</div>
+                        <div class="value" id="detailGender">-</div>
+                    </div>
+
+                    <div class="data-grid-item">
+                        <div class="label">Hospital / Department</div>
+                        <div class="value" id="detailDepartment">-</div>
+                    </div>
+                </div>
+
+                <h3 class="grid-section-title section-margin-top">Professional Credentials</h3>
+
+                <div class="data-grid">
+                    <div class="data-grid-item">
+                        <div class="label">Specialty</div>
+                        <div class="value" id="detailSpecialty">Radiologist</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- REPORT ACTIVITY SUMMARY -->
+            <div class="card summary-card">
+                <h3 class="grid-section-title">Report Activity Summary</h3>
+
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="activityReportsCreated">0</div>
+                        <div class="stat-label">Reports Created</div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-value" id="activityDraftsPending">0</div>
+                        <div class="stat-label">Drafts Pending</div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-value last-template" id="activityLastTemplate">-</div>
+                        <div class="stat-label">Last Template Used</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- EDIT PROFILE MODAL -->
+    <div id="editProfileModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <span class="close" id="closeEditModal">&times;</span>
+            <h2>Edit Profile</h2>
+
+            <div class="modal-body">
+
+                <label>Full Name</label>
+                <input type="text" id="inputFullName" class="modal-input">
+
+                <label>Specialty</label>
+                <input type="text" id="inputSpecialty" class="modal-input" placeholder="e.g. Neuroradiology">
+
+                <label>Hospital / Department</label>
+                <input type="text" id="inputDepartment" class="modal-input" placeholder="e.g. MSK Radiology">
+
+                <label>License ID</label>
+                <input type="text" id="inputLicense" class="modal-input">
+
+                <label>Phone Number</label>
+                <input type="text" id="inputPhone" class="modal-input">
+
+                <label>Date of Birth</label>
+                <input type="date" id="inputDob" class="modal-input">
+
+                <label>Gender</label>
+                <select id="inputGender" class="modal-input">
+                    <option value="">Select</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" id="btnCancelProfile">Cancel</button>
+                <button class="btn-primary" id="btnSaveProfile">Save Changes</button>
+            </div>
+
+        </div>
+
+    </div>
+
+            <!-- CHANGE PASSWORD MODAL -->
+            <div id="changePasswordModal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close" id="closeChangePasswordModal">&times;</span>
+                    <h2>Change Password</h2>
+                    <div class="modal-body">
+                        <label for="currentPassword">Current Password</label>
+                        <input id="currentPassword" type="password" class="modal-input">
+
+                        <label for="newPassword">New Password</label>
+                        <input id="newPassword" type="password" class="modal-input">
+
+                        <label for="confirmNewPassword">Confirm New Password</label>
+                        <input id="confirmNewPassword" type="password" class="modal-input">
+
+                        <p class="pw-hint">Password should be at least 8 characters and include uppercase, lowercase, a number, and a special character.</p>
+                        <p id="pwError" class="pw-error" style="display:none;"></p>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="btnCancelChangePassword" class="btn-secondary">Cancel</button>
+                        <button id="btnSubmitChangePassword" class="btn-primary">Change Password</button>
+                    </div>
+                </div>
+            </div>
+
+    <!-- REPORTS HISTORY -->
+    <div class="history-card card">
+        <h2 class="history-title">My Reports History</h2>
+
+        <div class="history-filters">
+            <input type="text" id="searchInput" placeholder="Search by Patient Name or Report ID..." class="history-input">
+
+            <select id="filterModality" class="history-select">
+                <option value="">Filter by Modality</option>
+                <option value="CT">CT</option>
+                <option value="MRI">MRI</option>
+                <option value="X-ray">X-ray</option>
+            </select>
+
+            <select id="filterStatus" class="history-select">
+                <option value="">Filter by Status</option>
+                <option value="Draft">Draft</option>
+                <option value="Finalized">Finalized</option>
+            </select>
+        </div>
+
+        <div class="history-table-wrapper">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Report ID</th>
+                        <th>Patient Name</th>
+                        <th>Modality</th>
+                        <th>Exam Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="reportsTableBody">
+                    <tr>
+                        <td colspan="6" style="text-align:center; padding:60px; color:#666; font-size:16px;">
+                            <div style="margin-bottom:16px;">No reports yet</div>
+                            <a href="../html/CT_MR_Liver.html" class="btn">Create Your First Report</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="history-footer">
+            <p class="history-count">Showing 1 to 3 of 50 reports</p>
+            <div class="history-pagination">
+                <button class="btn-page" disabled>&lt; Previous</button>
+                <button class="btn-page">Next &gt;</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <img src="../imgs/logo_dr_echo.png" alt="Dr. Echo Logo">
+            <p>Advanced structured reporting solutions for radiologists and healthcare facilities.</p>
+        </div>
+
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html">Report Templates</a></li>
+                <li><a href="../html/chatbot.html">Echo</a></li>
+                <li><a href="../html/about.html">About Us</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Get in Touch with Us</h4>
+            <p>support@drecho.com</p>
+            <p>+1 (555) 123-4567</p>
+        </div>
+    </div>
+
+    <p class="copyright">
+        © 2025 Dr. Echo. All rights reserved.
+    </p>
+</footer>
+
+<!-- FIREBASE SDK -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-storage-compat.js"></script>
+
+<script src="../js/firebase-config.js"></script>
+<script src="../js/profile.js"></script>
+
+<!-- Header login/logout -->
+<script>
+firebase.auth().onAuthStateChanged((user) => {
+    const login = document.getElementById("navLogin");
+    const logout = document.getElementById("navLogout");
+
+    if (user) {
+        login.style.display = "none";
+        logout.style.display = "inline-block";
+    } else {
+        login.style.display = "inline-block";
+        logout.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>

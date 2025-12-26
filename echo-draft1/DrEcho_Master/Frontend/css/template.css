@@ -1,0 +1,361 @@
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Satoshi, sans-serif;
+}
+
+body {
+    background: linear-gradient(180deg, #e8f4f8 0%, #f5f9fb 100%);
+    min-height: 100vh;
+    color: #263238;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Templates Hero Section */
+.templates-hero {
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-flex {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+}
+
+.templates-hero-content h1 {
+    font-size: 48px;
+    line-height: 1.3;
+    color: #263238;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.templates-hero-content h1 .highlight {
+    color: #29B6F6;
+    font-weight: 600;
+}
+
+.bot-illustration img {
+    width: 250px;
+    height: auto;
+}
+
+/* Search Bar */
+.template-search {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    max-width: 700px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid #B3E5FC;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: #29B6F6;
+}
+
+.filter-select {
+    padding: 14px 25px;
+    border: 2px solid #B3E5FC;
+    border-radius: 25px;
+    font-size: 16px;
+    background: white;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.filter-select:focus {
+    border-color: #29B6F6;
+}
+
+
+/* Templates Table Section */
+.templates-table-section {
+    padding: 40px 0 80px;
+    position: relative;
+}
+
+.template-count {
+    font-size: 16px;
+    color: #546E7A;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.templates-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.templates-table thead {
+    background: linear-gradient(135deg, #E3F2FD 0%, #B3E5FC 100%);
+}
+
+.templates-table th {
+    padding: 20px;
+    text-align: left;
+    font-weight: 600;
+    color: #0D5A7D;
+    font-size: 16px;
+}
+
+.templates-table tbody tr {
+    border-bottom: 1px solid #E0E0E0;
+    transition: background-color 0.3s;
+}
+
+.templates-table tbody tr:hover {
+    background-color: #F5F9FB;
+}
+
+.templates-table td {
+    padding: 20px;
+    font-size: 15px;
+    color: #263238;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.badge-ct {
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+.badge-mri {
+    background: #F3E5F5;
+    color: #7B1FA2;
+}
+
+.badge-xray {
+    background: #FFF3E0;
+    color: #F57C00;
+}
+
+.badge-ultrasound {
+    background: #E8F5E9;
+    color: #388E3C;
+}
+
+/* Buttons */
+.btn-icon {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 8px;
+    transition: transform 0.2s;
+}
+
+.btn-icon:hover {
+    transform: scale(1.2);
+}
+
+.btn-use {
+    background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 14px;
+}
+
+.btn-use:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(41, 182, 246, 0.4);
+}
+
+.btn-secondary {
+    background: white;
+    color: #29B6F6;
+    border: 2px solid #29B6F6;
+    padding: 12px 35px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 15px;
+}
+
+.btn-secondary:hover {
+    background: #29B6F6;
+    color: white;
+}
+
+.load-more {
+    text-align: center;
+    margin: 40px 0;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 40px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideDown 0.3s;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.modal h2 {
+    color: #0D5A7D;
+    margin-bottom: 20px;
+}
+
+.preview-body {
+    background: #F5F9FB;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    min-height: 200px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-flex {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .bot-illustration {
+        order: -1;
+    }
+
+    .template-search {
+        margin: 30px auto 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .templates-hero-content h1 {
+        font-size: 32px;
+    }
+
+    .template-search {
+        flex-direction: column;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .templates-table {
+        min-width: 600px;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .templates-hero-content h1 {
+        font-size: 24px;
+    }
+
+    .bot-illustration img {
+        width: 180px;
+    }
+
+    .templates-table th,
+    .templates-table td {
+        padding: 12px;
+        font-size: 13px;
+    }
+}

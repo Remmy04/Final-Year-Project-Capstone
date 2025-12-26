@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Templates | Dr. Echo</title>
+
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/template.css">
+</head>
+
+<body>
+<div class="container">
+
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html" class="active">Report Templates</a></li>
+                <li><a href="../html/about.html">About us</a></li>
+                <li><a href="../html/chatbot.html">Echo</a></li>
+                <li><a href="../html/profile.html">Profile</a></li>
+            </ul>
+
+            <a id="navLogin" href="../html/login.html" class="auth-button">Register / Log in</a>
+            <a id="navLogout" href="../html/logout.html" class="auth-button" style="display:none;">Logout</a>
+        </nav>
+    </header>
+
+</div>
+
+<!-- Templates Hero Section -->
+<section class="templates-hero">
+    <div class="container">
+        <div class="hero-flex">
+            <div class="templates-hero-content">
+                <h1><span class="highlight">Manually</span> choose a template or ask <br>
+                    <span class="highlight">Echo AI ChatBot</span> to create a report.
+                </h1>
+
+                <!-- Search + Filter -->
+                <div class="template-search">
+                    <input type="text" id="searchInput" placeholder="🔍 Search by name or specialty" class="search-input">
+                    <select id="filterSelect" class="filter-select">
+                        <option value="all">All Templates</option>
+                        <option value="ct">CT Scans</option>
+                        <option value="mri">MRI</option>
+                        <option value="xray">X-Ray</option>
+                        <option value="ultrasound">Ultrasound</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bot-illustration">
+                <a href="../html/chatbot.html">
+                    <img src="../imgs/logo_echo.png" alt="Echo Bot">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Templates Table Section -->
+<section class="templates-table-section">
+    <div class="container">
+        <p class="template-count">Showing <span id="templateCount">3</span> templates</p>
+
+        <div class="table-container">
+            <table class="templates-table">
+                <thead>
+                <tr>
+                    <th>Template Name</th>
+                    <th>Specialty</th>
+                    <th>Modality</th>
+                    <th>Preview</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody id="templatesTableBody">
+
+                <!-- Template #1 -->
+                <tr data-category="ct">
+                    <td><strong>CT and MRI Liver</strong></td>
+                    <td>Hepatology</td>
+                    <td><span class="badge badge-ct">CT</span> <span class="badge badge-mri">MRI</span></td>
+                    <td><button class="btn-icon" onclick="previewTemplate('ct-mri-liver')">👁️</button></td>
+                    <td><a href="../html/CT_MR_Liver.html" class="btn-use">Use Template</a></td>
+                </tr>
+
+                <!-- Template #2 -->
+                <tr data-category="mri">
+                    <td><strong>Breast Mammography</strong></td>
+                    <td>Breast Imaging</td>
+                    <td><span class="badge badge-mri">MRI</span></td>
+                    <td><button class="btn-icon" onclick="previewTemplate('breast-mammography')">👁️</button></td>
+                    <td><button class="btn-use" onclick="useTemplate('breast-mammography','Breast Mammography')">Use Template</button></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="load-more">
+            <button class="btn-secondary" onclick="loadMoreTemplates()">Show More Templates</button>
+        </div>
+    </div>
+</section>
+
+<!-- Preview Modal -->
+<div id="previewModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Template Preview</h2>
+        <div id="previewContent" class="preview-body">
+            <p>Loading preview...</p>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-secondary" onclick="closeModal()">Close</button>
+            <button class="btn-use" onclick="downloadTemplate()">📥 Download HTML</button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Section -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <img src="../imgs/logo_dr_echo.png" alt="Dr. Echo Logo">
+            <p>Advanced structured reporting solutions for radiologists and healthcare facilities.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html">Report Templates</a></li>
+                <li><a href="../html/chatbot.html">Echo</a></li>
+                <li><a href="../html/about.html">About Us</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Get in Touch with Us</h4>
+            <p>support@drecho.com</p>
+            <p>+1 (555) 123-4567</p>
+        </div>
+    </div>
+    <p class="copyright">© 2025 Dr. Echo. All rights reserved.</p>
+</footer>
+
+
+<!-- Firebase Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+
+<script src="../js/firebase-config.js"></script>
+
+<!-- Login/Logout Visibility -->
+<script>
+firebase.auth().onAuthStateChanged((user) => {
+    const login = document.getElementById("navLogin");
+    const logout = document.getElementById("navLogout");
+
+    if (!login || !logout) return;
+
+    if (user) {
+        login.style.display = "none";
+        logout.style.display = "inline-block";
+    } else {
+        login.style.display = "inline-block";
+        logout.style.display = "none";
+    }
+});
+</script>
+
+<!-- Your page JS functions -->
+<script src="../js/template.js"></script>
+
+</body>
+</html>

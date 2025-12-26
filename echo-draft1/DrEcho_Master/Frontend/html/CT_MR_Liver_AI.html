@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CT / MRI Liver Report</title>
+  <link rel="stylesheet" href="../css/CT_MR_Liver_AI.css">
+
+  <!-- Firebase JS SDK from cdnjs (same as chatbot.html) -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+
+  <!-- Your Firebase config that defines window.db (same file as chatbot.html) -->
+  <script src="../js/firebase-config.js"></script>
+  <script src="../js/id_generator.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- ===========================
+         TOP TITLE (updates with modality selection)
+         =========================== -->
+    <header class="header-row">
+      <h1 id="reportTitle">CT and MRI Liver Report</h1>
+      <div class="report-meta">
+        <label for="reportDate">Report Date & Time</label>
+        <input id="reportDate" class="input tiny" type="datetime-local" />
+      </div>
+    </header>
+
+
+    <!-- ===========================
+         1. Patient Information
+         =========================== -->
+    <section class="card" id="patient-info">
+      <div class="section-title">1. Patient Information</div>
+      <div class="card-body">
+        <div class="grid">
+          <div>
+            <label for="patientName">Patient Name</label>
+            <input id="patientName" class="input" type="text" />
+
+            <label for="dob" style="margin-top:10px;">Date of Birth</label>
+            <input id="dob" class="input" type="date" />
+
+            <label for="age" style="margin-top:10px;">Age</label>
+            <input id="age" class="input" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+
+            <label for="sex" style="margin-top:10px;">Sex</label>
+            <select id="sex" class="input">
+              <option value="">—</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="patientId" style="margin-top:10px;">Patient ID</label>
+            <input id="patientId" class="input" type="text" />
+
+            <label for="reportId" style="margin-top:10px;">Report ID</label>
+            <input id="reportId" class="input" type="text" />
+
+            <label for="referrer" style="margin-top:10px;">Referring Physician</label>
+            <input id="referrer" class="input" type="text" />
+
+            <label for="institution" style="margin-top:10px;">Institution / Hospital</label>
+            <input id="institution" class="input" type="text" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===========================
+         2. Procedure Information
+         =========================== -->
+    <section class="card" id="procedure-info">
+      <div class="section-title">2. Procedure Information</div>
+      <div class="card-body">
+
+        <div class="grid">
+          <div>
+            <label for="modality">Modality</label>
+            <select id="modality" class="input">
+              <option value="">—</option>
+              <option value="CT">CT</option>
+              <option value="MRI">MRI</option>
+            </select>
+          </div>
+        </div><br/>
+
+        <div style="margin-top:12px;">
+          <label>Study type</label>
+          <div class="radio-row">
+            <label><input type="radio" name="studyContrast" value="contrast"> Contrast Study</label>
+            <label><input type="radio" name="studyContrast" value="non-contrast"> Non-Contrast Study</label>
+          </div>
+        </div>
+
+        <div id="contrastOptions" style="display:none; margin-top:12px;">
+          <div class="grid">
+            <div>
+              <label for="contrastType">Type of Contrast Agent</label>
+              <select id="contrastType" class="input">
+                <!-- populated by script -->
+              </select>
+            </div>
+
+            <div>
+              <label for="contrastVolume">Volume of Contrast (ml) — optional</label>
+              <input id="contrastVolume" class="input small-input optional" type="number" min="0" step="1"  
+                oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <label for="useSubtraction">Use of Vascular Subtraction</label>
+          <select id="useSubtraction" class="input">
+            <option value="">—</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+
+        <!-- Purpose only shown when Use of Vascular Subtraction == Yes -->
+        <div id="subtractionPurposeContainer" style="display:none; margin-top:10px;">
+          <label for="subtractionPurpose">Purpose of Vascular Subtraction</label>
+          <select id="subtractionPurpose" class="input">
+            <option value="">—</option>
+            <option>APHE</option>
+            <option>Washout</option>
+            <option>APHE and Washout</option>
+          </select>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <!-- ===========================
+         3. Clinical Information
+         =========================== -->
+    <section class="card" id="clinical-info">
+      <div class="section-title">3. Clinical Information</div>
+      <div class="card-body">
+
+        <div class="grid">
+          <div>
+            <label>Risk Factors for HCC</label>
+            <div class="grid-3">
+              <label><input type="checkbox" id="rf_cirrhosis" /> Cirrhosis</label>
+              <label><input type="checkbox" id="rf_hbv" /> HBV</label>
+              <label><input type="checkbox" id="rf_hcv" /> Current HCV</label>
+            </div>
+          </div>
+        </div> <br/>
+
+        <div>
+              <label for="etiologyOfLiverDisease">Etiology of Liver Disease</label>
+              <input id="etiologyOfLiverDisease" class="input" type="text" placeholder="List all that apply."/>
+        </div> <br/>
+
+        <div class="divider"></div> 
+
+        <div>
+          <label>Has the patient received any prior treatment?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="anyTreatment" value="Yes"> Yes</label>
+            <label><input type="radio" name="anyTreatment" value="No"> No</label>
+          </div>
+        </div>
+
+        <!-- Treatment History (hidden unless Any treatment = Yes) -->
+        <div id="treatmentBlock" style="display:none; margin-top:12px;">
+          <div class="section-sub">Treatment History</div>
+
+          <label for="treatmentModalityHistory">Treatment Modality</label>
+          <input id="treatmentModalityHistory" class="input" type="text" />
+
+          <label style="margin-top:10px;">Treatment Date(s)</label>
+          <div id="treatmentDatesContainer">
+            <!-- initial date row added by script -->
+          </div>
+
+          <div style="margin-top:8px;">
+            <button type="button" id="addTreatmentDate" class="btn">+ Add Date</button>
+            <small class="muted" style="display:block; margin-top:6px;">Click + Add Date to add multiple treatment dates.</small>
+          </div>
+        </div><br/>
+
+        <!-- Pathology (only shown if Any treatment = Yes) -->
+        <div id="pathologyBlock" style="display:none; margin-top:12px;">
+          <div class="section-sub">Pathology</div>
+          <label for="pathologyDiagnosis">Diagnosis</label>
+          <input id="pathologyDiagnosis" class="input" type="text" />
+          <label style="margin-top:10px;" for="pathologyDate">Date of Pathology</label>
+          <input id="pathologyDate" class="input" type="date" />
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ===========================
+         4. Comparison
+         =========================== -->
+    <section class="card" id="comparison">
+      <div class="section-title">4. Comparison</div>
+      <div class="card-body">
+        <label for="comparisonAvailable">Is a comparison available?</label>
+        <select id="comparisonAvailable" class="input">
+          <option value="">—</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <div id="comparisonDetails" style="display:none; margin-top:12px;">
+          <label for="priorExamModality">Prior Exam Modality</label>
+          <select id="priorExamModality" class="input">
+            <option value="">—</option>
+            <option value="CT">CT</option>
+            <option value="MRI">MRI</option>
+          </select>
+
+          <div style="margin-top:10px;">
+            <label for="priorContrastType">Type of Contrast</label>
+            <select id="priorContrastType" class="input">
+              <!-- populated dynamically -->
+            </select>
+          </div>
+
+          <label for="priorExamDate" style="margin-top:12px;">Date of Prior Exam</label>
+          <input id="priorExamDate" class="input" type="date" />
+
+          <label for="comparisonRemarks" style="margin-top:12px;">Comparison Remarks</label>
+          <textarea id="comparisonRemarks" class="input" rows="2"></textarea>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===========================
+         5. Findings
+         =========================== -->
+    <section class="card" id="findings">
+      <div class="section-title">5. Findings</div>
+      <div class="card-body">
+
+        <div class="section-sub">Background Liver</div>
+        <div class="grid-3">
+          <div>
+            <label>Features of Cirrhosis</label>
+            <div class="radio-group">
+              <label><input type="radio" name="cirrhosis" value="Yes"> Yes</label>
+              <label><input type="radio" name="cirrhosis" value="No"> No</label>
+            </div>
+          </div>
+
+          <div>
+            <label>Steatosis</label>
+            <div class="radio-group">
+              <label><input type="radio" name="steatosis" value="Yes"> Yes</label>
+              <label><input type="radio" name="steatosis" value="No"> No</label>
+            </div>
+          </div>
+
+          <div>
+            <label>Siderosis</label>
+            <div class="radio-group">
+              <label><input type="radio" name="siderosis" value="Yes"> Yes</label>
+              <label><input type="radio" name="siderosis" value="No"> No</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div style="margin-top:12px;">
+          <label>Observation type</label>
+          <div class="radio-row" style="margin-bottom:8px;">
+            <label><input type="radio" name="observationMode" value="lesion"> Lesion(s)</label>
+            <label><input type="radio" name="observationMode" value="non-lesion"> Non-lesion</label>
+          </div>
+        </div>
+
+        <!-- Lesion count -->
+        <div id="lesionCountBlock" style="display:none; margin-top:10px;">
+          <label for="lesionCount">Number of Lesions</label>
+          <input id="lesionCount" class="input small-input" type="number" min="1" step="1" 
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+        </div>
+
+        <!-- container for generated observation blocks -->
+        <div id="lesionObservationsContainer" style="margin-top:12px;"></div>
+
+        
+        <!-- Aggregate section -->
+        <div class="divider" style="margin-top:14px;"></div>
+
+        <div id="aggregateSection" style="display:none; margin-top:12px;">
+          <div class="section-sub">Observations Described in Aggregate</div>
+          <p class="help-text">Use when multiple lesions are summarized together</p>
+
+          <div class="grid">
+            <div>
+              <label>Unique Identifier</label>
+              <input id="aggregateIdentifier" class="input" type="text" />
+            </div>
+            <div>
+              <label>Overall Size (mm)</label>
+              <input id="aggregateSize" class="input small-input" type="number" step="1" 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+            </div>
+            <div>
+              <label>Location</label>
+              <input id="aggregateLocation" class="input" type="text" />
+            </div>
+            <div style="grid-column:1 / -1;">
+              <label>Imaging Features</label>
+              <input id="aggregateImagingFeatures" class="input" type="text" />
+            </div>
+            <div>
+              <label>Vascular</label>
+              <input id="aggregateVascular" class="input" type="text" />
+            </div>
+            <div>
+              <label>Biliary</label>
+              <input id="aggregateBiliary" class="input" type="text" />
+            </div>
+          </div>
+
+          <div class="divider" style="margin-top:14px;"></div>
+
+        </div>
+
+       
+        <!-- Additional Findings -->
+        <div class="section-sub">Additional Findings</div> <br/>
+        <div class="grid">
+          <div>
+            <label>Signs of Portal Hypertension</label>
+            <div class="radio-group">
+              <label><input type="radio" name="portalHypertension" value="Yes"> Yes</label>
+              <label><input type="radio" name="portalHypertension" value="No"> No</label>
+            </div>
+          </div>
+
+          <div style="grid-column:1 / -1;">
+            <label>Extra Hepatic Findings (optional)</label>
+            <input id="extraHepatic" class="input optional" type="text" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <!-- ===========================
+         6. Impression
+         =========================== -->
+    <section class="card" id="impression">
+      <div class="section-title">6. Impression</div>
+      <div class="card-body">
+        <label for="impressionSummary">Impression summary</label>
+        <textarea id="impressionSummary" class="input" rows="5"></textarea>
+
+        <div style="margin-top:12px;">
+          <label for="recommendation">Recommendation / Follow-up</label>
+          <textarea id="recommendation" class="input" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===========================
+         7. Report Summary & Sign-off
+         =========================== -->
+    <section class="card" id="report-summary">
+      <div class="section-title">7. Report Summary & Sign-off</div>
+      <div class="card-body">
+        <div class="grid">
+          <div style="grid-column:1 / -1;">
+            <label for="examConclusion">Exam Conclusion</label>
+            <textarea id="examConclusion" class="input" rows="3"></textarea>
+          </div>
+
+          <div>
+            <label for="createdBy">Report Created by</label>
+            <input id="createdBy" class="input" type="text" />
+          </div>
+
+          <div>
+            <label for="approvedBy">Approved by</label>
+            <input id="approvedBy" class="input" type="text" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===========================
+         SAVE BUTTON
+         =========================== -->
+    <div style="text-align:center; margin:18px 0 40px 0;">
+  <button id="saveBtn" class="btn btn-large">
+    Generate standard patient report
+  </button>
+</div>
+
+    <br/>
+    <br/>
+
+  </div> 
+
+  <!-- NEW: Prefill from chatLogs using chatDocId -->
+  <script src="../js/CT_MR_Liver_prefill.js"></script>
+
+  <!-- Existing dynamic behaviour & validation -->
+  <script src="../js/CT_MR_Liver.js"></script>
+</body>
+</html>

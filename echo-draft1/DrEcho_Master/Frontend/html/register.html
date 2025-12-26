@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Dr. Echo</title>
+
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/id_generator.js"></script>
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="auth-box">
+
+            <h2 class="auth-title">Create an Account</h2>
+            <p class="auth-subtitle">Join us today</p>
+
+            <form id="registerForm">
+
+                <label class="label">Register as:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="role" value="user" checked> User</label>
+                    <label><input type="radio" name="role" value="admin"> Admin</label>
+                </div>
+
+                <label class="label">Full Name</label>
+                <input type="text" name="fullname" class="input-field" required>
+
+                <label class="label">Email</label>
+                <input type="email" name="email" class="input-field" required>
+
+                <label class="label">Password</label>
+                <input type="password" name="password" class="input-field" id="passwordInput" required>
+                
+                <div class="password-info">
+                  <p class="small-note">Password must contain at least 8 characters, including uppercase, lowercase, number, and special character.</p>
+                  
+                  <ul class="pw-checklist" id="pwChecklist">
+                    <li id="pw-length" class="unchecked">✓ At least 8 characters</li>
+                    <li id="pw-lower" class="unchecked">✓ Lowercase letter (a–z)</li>
+                    <li id="pw-upper" class="unchecked">✓ Uppercase letter (A–Z)</li>
+                    <li id="pw-number" class="unchecked">✓ Number (0–9)</li>
+                    <li id="pw-special" class="unchecked">✓ Special character (e.g. !@#$%)</li>
+                    <li id="pw-match" class="unchecked">✓ Passwords match</li>
+                  </ul>
+                  
+                  <div class="help-text" id="pwHelp">Create a strong password to secure your account.</div>
+                </div>
+
+                <label class="label">Confirm Password</label>
+                <input type="password" name="confirm_password" class="input-field" id="confirmInput" required>
+
+                <button type="submit" class="btn-submit">Register</button>
+
+                <p class="bottom-text">
+                    Already have an account?
+                    <a href="../html/login.html">Log In</a>
+                </p>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Firebase Compat -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/register.js"></script>
+
+</body>
+</html>
