@@ -1,0 +1,72 @@
+@import url('./CT_MR_Liver.css');
+
+.section-note {
+  margin-bottom: 12px;
+  color: #5a5a5a;
+  font-style: italic;
+}
+
+.radio-row.wrap {
+  flex-wrap: wrap;
+}
+
+.section-sub {
+  font-weight: 700;
+  color: #2f528f;
+  margin: 8px 0;
+}
+
+#massContainer .observation-block,
+#rightLesionContainer .observation-block,
+#leftLesionContainer .observation-block,
+#rightCystContainer .observation-block,
+#leftCystContainer .observation-block {
+  margin-top: 10px;
+}
+
+/* --- UI UPGRADES FOR BETTER CLINICAL READING --- */
+
+/* Increase general spacing inside the cards */
+.card-body {
+    padding: 24px; 
+    font-size: 1.05rem; /* Slightly larger base font */
+    line-height: 1.6;
+}
+
+/* Make inputs and dropdowns taller and easier to click */
+.input {
+    padding: 12px;
+    font-size: 1rem;
+    margin-bottom: 15px; /* Adds breathing room between fields */
+}
+
+/* Style the new Section 4 Subheadings (Part 4A, 4B, 4C) */
+.section-sub-title {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c3e50; /* A professional dark navy/grey */
+    background-color: #f8f9fa;
+    padding: 12px;
+    margin: 30px 0 20px 0;
+    border-radius: 6px;
+    border-bottom: 3px solid #3498db; /* A nice blue accent line */
+}
+
+/* Style for the new Preview Button Container */
+.preview-action-container {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #eef2f5;
+    border-radius: 8px;
+    border: 1px dashed #bdc3c7;
+}
+
+.btn-secondary {
+    background-color: #95a5a6; /* A distinct grey color so it doesn't compete with the final save button */
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}

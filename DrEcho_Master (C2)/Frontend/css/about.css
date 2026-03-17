@@ -1,0 +1,208 @@
+/* CONTAINER */
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #e6f3f7 0%, #f5f9fb 100%);
+    border: 2px solid #B3E5FC;
+    border-radius: 25px;
+    padding: 60px 50px;
+    box-shadow: 0 12px 30px rgba(78, 139, 168, 0.15);
+    animation: fadeIn 0.7s ease-out;
+}
+
+/* SIMPLE FADE ANIMATION */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* HERO SECTION */
+.about-hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Icon container */
+.feature-icon {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 20%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E0F7FA;
+    box-shadow: 0 4px 15px rgba(14, 92, 129, 0.8);
+
+}
+
+/* Image inside icon box */
+.feature-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        
+    object-position: center; 
+}
+
+
+/* ABOUT TITLE */
+.about-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #0D5A7D;
+}
+
+.about-subtitle {
+    font-size: 18px;
+    color: #546E7A;
+    max-width: 700px;
+    line-height: 1.6;
+    margin: 10px auto 0;
+}
+
+/* SECTIONS */
+.about-section {
+    margin-bottom: 45px;
+}
+
+.about-section h2 {
+    font-size: 28px;
+    color: #29B6F6;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.about-section p {
+    font-size: 18px;
+    color: #455A64;
+    line-height: 1.7;
+}
+
+/* FEATURE CARDS */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 35px;
+}
+
+.feature-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    border: 2px solid #E1F5FE;
+    box-shadow: 0 6px 15px rgba(79, 195, 247, 0.15);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 26px rgba(79, 195, 247, 0.25);
+}
+
+.feature-card h3 {
+    font-size: 22px;
+    color: #29B6F6;
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    font-size: 15px;
+    color: #546E7A;
+}
+
+/* TEAM SECTION */
+.team-section {
+    background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+    padding: 40px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.team-section h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.team-section p {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+/* -------------------- RESPONSIVENESS (Exact as Dr Echo) -------------------- */
+
+/* Large Tablet */
+@media (max-width: 1024px) {
+
+    .about-container {
+        padding: 50px 35px;
+    }
+
+    .about-title {
+        font-size: 36px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Tablet / Large Phones */
+@media (max-width: 768px) {
+
+    body {
+        padding: 30px 15px;
+    }
+
+    .about-container {
+        padding: 40px 25px;
+    }
+
+    .about-title {
+        font-size: 30px;
+    }
+
+    .about-subtitle {
+        font-size: 16px;
+    }
+
+    .about-section h2 {
+        font-size: 22px;
+    }
+
+    .about-section p {
+        font-size: 16px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .about-container {
+        padding: 30px 20px;
+    }
+
+    .about-title {
+        font-size: 26px;
+    }
+
+    .about-subtitle {
+        font-size: 15px;
+    }
+
+    .about-section h2 {
+        font-size: 20px;
+    }
+
+    .about-section p {
+        font-size: 15px;
+    }
+}

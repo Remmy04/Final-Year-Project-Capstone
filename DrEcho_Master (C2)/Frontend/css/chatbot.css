@@ -1,0 +1,231 @@
+/* css/chatbot.css - Professional UI Upgrade */
+
+/* 1. Page Background & Layout */
+.chatbot-section {
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* GRADIENT TEXT EFFECT */
+.chatbot-title {
+    font-size: 2.5rem; /* Larger */
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+    
+    /* The Magic Gradient */
+    background: linear-gradient(to right, #1e293b, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+}
+
+.chatbot-subtitle {
+    color: #64748b;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+/* 2. The Main Chat Card */
+.chatbot-box {
+    width: 100%;
+    max-width: 900px;
+    height: 700px;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); /* Modern deep shadow */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* 3. Messages Area */
+#chat-window {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Space between message groups */
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar styling */
+#chat-window::-webkit-scrollbar { width: 6px; }
+#chat-window::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+
+/* 4. MESSAGE ROWS (The Container) */
+.message-row {
+    display: flex;
+    align-items: flex-end; /* Align bubble bottom with avatar */
+    gap: 12px;
+    width: 100%;
+    opacity: 0;
+    animation: slideUp 0.3s forwards ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Left side (Echo) */
+.message-row.bot {
+    justify-content: flex-start;
+}
+
+/* Right side (User) */
+.message-row.user {
+    justify-content: flex-end;
+}
+
+/* AVATAR STYLING */
+.bot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    padding: 4px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    flex-shrink: 0;
+    
+    /* Breathing Animation */
+    animation: breathe 3s infinite ease-in-out;
+}
+@keyframes breathe {
+    0%, 100% { box-shadow: 0 0 0 0px rgba(37, 99, 235, 0.1); }
+    50% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.15); }
+}
+
+/* MESSAGE BUBBLES */
+.bubble {
+    max-width: 70%;
+    padding: 16px 20px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* Echo Bubble Style */
+.bubble-bot {
+    background-color: #f1f5f9;
+    color: #334155;
+    border-radius: 18px 18px 18px 2px; /* Square corner at bottom-left */
+}
+
+/* User Bubble Style */
+.bubble-user {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    border-radius: 18px 18px 2px 18px; /* Square corner at bottom-right */
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+}
+
+/* Sender Name (Optional, good for accessibility) */
+.sender-name {
+    display: none; /* Hidden for cleaner look, toggle if desired */
+}
+
+/* 5. Input Area */
+.input-row {
+    padding: 24px;
+    background-color: #ffffff;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+#message-input {
+    flex: 1;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 16px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+    height: 56px;
+    resize: none;
+}
+
+#message-input:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+#send-btn {
+    height: 56px;
+    padding: 0 32px;
+    background: #0f172a;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.2s;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+#send-btn:hover { background: #1e293b; transform: translateY(-2px); }
+#send-btn:active { transform: scale(0.96); }
+
+/* Template Button inside Bubble */
+.template-btn {
+    margin-top: 12px;
+    width: 100%;
+    background: white;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.template-btn:hover {
+    background: #2563eb;
+    color: white;
+}
+
+/* Typing Indicator (Bot only) */
+.typing-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.typing-bubble {
+    background-color: #f1f5f9;
+    padding: 12px 16px;
+    border-radius: 18px 18px 18px 2px;
+    display: flex;
+    gap: 4px;
+}
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #94a3b8;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out both;
+}
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}

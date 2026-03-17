@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting List | Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/admin-base.css">
+    <link rel="stylesheet" href="../css/admin-waiting-list.css">
+</head>
+
+<body>
+<div class="container">
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../html/admin.html" class="nav-link">Home</a></li>
+                <li><a href="../html/admin-waiting-list.html" class="nav-link">Waiting List</a></li>
+                <li><a href="../html/admin-search-doctors.html" class="nav-link">Search Doctors</a></li>
+                <li><a href="../html/admin-users.html" class="nav-link">Manage Users</a></li>
+                <li><a href="../html/admin-templates.html" class="nav-link">Manage Templates</a></li>
+            </ul>
+
+            <a id="navLogout" href="../html/logout.html" class="auth-button">Logout</a>
+        </nav>
+    </header>
+</div>
+
+<!-- Waiting List View -->
+<div class="admin-view active">
+    <section class="admin-section">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Radiologist Registration Waiting List</h1>
+                <p class="subtitle">Review and approve pending radiologist registration requests</p>
+            </div>
+
+            <div class="waiting-list-container">
+                <!-- Waiting List Toolbar -->
+                <div class="waiting-list-toolbar">
+                    <div class="toolbar-stats">
+                        <span class="stat-badge pending">
+                            <strong id="pendingCount">0</strong> Pending Requests
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Waiting List Items -->
+                <div id="waitingListContent" class="waiting-list-content">
+                    <!-- Cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <p>No pending requests at this time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Radiologist Details Modal -->
+<div id="detailsModal" class="modal">
+    <div class="modal-content modal-large">
+        <div class="modal-header">
+            <h2 id="detailsModalTitle">Request Details</h2>
+            <button class="close-btn" onclick="closeDetailsModal()">&times;</button>
+        </div>
+        <div id="detailsContent" class="details-content">
+            <!-- Populated by JS -->
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeDetailsModal()">Close</button>
+            <button type="button" class="btn btn-danger" id="rejectBtn" onclick="rejectRequest()">
+                <span class="btn-icon">✕</span> Reject
+            </button>
+            <button type="button" class="btn btn-success" id="approveBtn" onclick="approveRequest()">
+                <span class="btn-icon">✓</span> Approve
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content modal-small">
+        <div class="modal-header">
+            <div id="modalIcon" class="modal-icon"></div>
+            <h2 id="confirmTitle">Confirm Action</h2>
+            <button class="close-btn" onclick="closeConfirmModal()">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <p id="confirmMessage" class="confirm-message"></p>
+            
+            <!-- Rejection reason -->
+            <div id="rejectionReasonContainer" class="rejection-container" style="display: none;">
+                <label class="form-label">Rejection Reason <span class="required">*</span></label>
+                <textarea 
+                    id="rejectionReason" 
+                    class="form-textarea" 
+                    rows="4" 
+                    placeholder="Write a clear reason (the user will see this)..."
+                    required></textarea>
+            </div>
+        </div>
+        
+        <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+            <button type="button" class="btn btn-confirm" id="confirmActionBtn" onclick="executeAction()"></button>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+
+<script src="../js/admin-common.js"></script>
+<script src="../js/admin-waiting-list.js"></script>
+
+<!-- Footer -->
+<footer class="admin-footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <img src="../imgs/logo_dr_echo.png" alt="Dr. Echo Logo" class="footer-logo">
+            <p>Advanced admin control center for managing Dr. Echo system operations, users, and templates.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Admin Resources</h4>
+            <ul>
+                <li><a href="../html/admin-waiting-list.html">Waiting List</a></li>
+                <li><a href="../html/admin-search-doctors.html">Search Doctors</a></li>
+                <li><a href="../html/admin-users.html">User Management</a></li>
+                <li><a href="../html/admin-templates.html">Template Management</a></li>
+                <li><a href="../html/index.html">Back to Main Site</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Support</h4>
+            <p>Admin Support: admin@drecho.com</p>
+            <p>System Status: <span class="status-badge-footer">Operational</span></p>
+            <p>Last Updated: Today</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="copyright">© 2025 Dr. Echo. All rights reserved. | Admin Portal</p>
+    </div>
+</footer>
+
+</body>
+
+</html>

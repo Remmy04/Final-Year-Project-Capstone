@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Dr. Echo</title>
+
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/about.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html">Report Templates</a></li>
+                <li><a href="../html/about.html" class="active">About us</a></li>
+                <li><a href="../html/chatbot.html">Echo</a></li>
+                <li><a href="../html/profile.html">Profile</a></li>
+            </ul>
+
+            <a id="navLogin" href="../html/login.html" class="auth-button">Register / Log in</a>
+            <a id="navLogout" href="../html/logout.html" class="auth-button" style="display:none;">Logout</a>
+        </nav>
+    </header>
+
+</div>
+
+<!-- About Page Content -->
+<div class="about-container">
+
+    <section class="about-hero">
+        <h1 class="about-title">About Dr. Echo</h1>
+        <p class="about-subtitle">
+            A simple AI-assisted platform built to make radiology reporting clearer, faster, and more consistent.
+        </p>
+    </section>
+
+    <div class="features-grid">
+
+        <!-- What We Do -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <img src="../imgs/about1.jpg" alt="What We Do Icon" class="feature-icon-img">
+            </div>
+            <h2>What We Do</h2>
+            <p>
+                Dr. Echo helps radiologists generate structured medical reports using ready-made templates
+                and AI-assisted terminology suggestions. Our goal is to simplify the reporting workflow and
+                improve clarity for clinicians.
+            </p>
+        </div>
+
+        <!-- Our Mission -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <img src="../imgs/about2.jpg" alt="Our Mission" class="feature-icon-img">
+            </div>
+            <h2>Our Mission</h2>
+            <p>
+                To support better communication in healthcare by making radiology reports more organized,
+                accurate, and easy to understand.
+            </p>
+        </div>
+
+        <!-- Who We Are -->
+        <div class="feature-card">
+            <div class="feature-icon">
+                <img src="../imgs/about3.jpg" alt="WWho We Are" class="feature-icon-img">
+            </div>
+            <h2>Who We Are</h2>
+            <p>
+                We are a team of IT students from Taylor's University, guided by clinical advisors and academic supervisors,
+                developing Dr. Echo as our Final Year Project.
+            </p>
+        </div>
+
+    </div>
+
+    <section class="team-section">
+        <h2>Built with Passion & Purpose</h2>
+        <p>
+            Dr. Echo represents the intersection of healthcare innovation and student ambition.
+            Our multidisciplinary team combines technical expertise with clinical insights to create
+            a tool that truly serves the medical community.
+        </p>
+    </section>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <img src="../imgs/logo_dr_echo.png" alt="Dr. Echo Logo">
+            <p>Advanced structured reporting solutions for radiologists and healthcare facilities.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html">Report Templates</a></li>
+                <li><a href="../html/chatbot.html">Echo</a></li>
+                <li><a href="../html/about.html">About Us</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Get in Touch with Us</h4>
+            <p>support@drecho.com</p>
+            <p>+1 (555) 123-4567</p>
+        </div>
+    </div>
+    <p class="copyright">© 2025 Dr. Echo. All rights reserved.</p>
+</footer>
+
+<!-- Firebase -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+
+<script src="../js/firebase-config.js"></script>
+
+<!-- Login/Logout Visibility -->
+<script>
+firebase.auth().onAuthStateChanged((user) => {
+    const login = document.getElementById("navLogin");
+    const logout = document.getElementById("navLogout");
+
+    if (!login || !logout) return;
+
+    if (user) {
+        login.style.display = "none";
+        logout.style.display = "inline-block";
+    } else {
+        login.style.display = "inline-block";
+        logout.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+/* Admin Templates Page Styles */
+
+/* Templates Section */
+.templates-container {
+    width: 100%;
+}
+
+.templates-toolbar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+/* Template Card */
+.template-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.template-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+}
+
+.template-card-header {
+    margin-bottom: 12px;
+}
+
+.template-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #263238;
+    margin-bottom: 6px;
+}
+
+.template-card-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.template-card-category {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #E3F2FD;
+    color: #1976D2;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.template-card-info {
+    flex: 1;
+    margin-bottom: 12px;
+}
+
+.template-card-info p {
+    font-size: 13px;
+    color: #757575;
+    margin: 8px 0;
+}
+
+.template-card-info strong {
+    color: #263238;
+    font-weight: 600;
+}
+
+/* Template Status Badges */
+.template-card-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.template-status-active {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.template-status-inactive {
+    background: #FFF3E0;
+    color: #383d41;
+}
+
+.template-status-draft {
+    background: #F3E5F5;
+    color: #6A1B9A;
+}
+
+/* Template Card Actions */
+.template-card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #263238;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: #fafafa;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.checkbox-group label:hover {
+    background: #f0f8ff;
+    border-color: #42a5f5;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin: 0;
+    accent-color: #42a5f5;
+}
+
+.template-card-actions .action-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.template-card-actions .edit {
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+.template-card-actions .edit:hover {
+    background: #BBDEFB;
+}
+
+.template-card-actions .toggle.show {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.template-card-actions .toggle.show:hover {
+    background: #C8E6C9;
+}
+
+.template-card-actions .toggle.hide {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.template-card-actions .toggle.hide:hover {
+    background: #FFCDD2;
+}
+
+.template-card-actions .delete {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.template-card-actions .delete:hover {
+    background: #FFCDD2;
+}
+
+/* Responsive Design for Templates */
+@media (max-width: 768px) {
+    .templates-toolbar {
+        flex-direction: column;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .templates-grid {
+        grid-template-columns: 1fr;
+    }
+}

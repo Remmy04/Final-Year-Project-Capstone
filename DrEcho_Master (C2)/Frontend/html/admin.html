@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Dr. Echo</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/admin-base.css">
+</head>
+
+<body>
+<div class="container">
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../html/admin.html" class="nav-link">Home</a></li>
+                <li><a href="../html/admin-waiting-list.html" class="nav-link">Waiting List</a></li>
+                <li><a href="../html/admin-search-doctors.html" class="nav-link">Search Doctors</a></li>
+                <li><a href="../html/admin-users.html" class="nav-link">Manage Users</a></li>
+                <li><a href="../html/admin-templates.html" class="nav-link">Manage Templates</a></li>
+            </ul>
+
+            <a id="navLogout" href="../html/logout.html" class="auth-button">Logout</a>
+        </nav>
+    </header>
+</div>
+
+
+<!-- Home View -->
+<div id="home-view" class="admin-view active">
+    <!-- Hero Section -->
+    <section class="admin-hero">
+        <div class="hero-background">
+            <div class="hero-circle hero-circle-1"></div>
+            <div class="hero-circle hero-circle-2"></div>
+            <div class="hero-circle hero-circle-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Admin Dashboard</h1>
+                <p class="hero-subtitle">Manage your system efficiently</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Cards -->
+    <section class="quick-access-section">
+        <div class="container">
+            <h2>Quick Access</h2>
+            <div class="quick-access-grid">
+                <a href="../html/admin-waiting-list.html" class="quick-card">
+                    <div class="quick-icon">⏳</div>
+                    <h3>Waiting List</h3>
+                    <p>Review and approve pending radiologist registration requests</p>
+                </a>
+                <a href="../html/admin-search-doctors.html" class="quick-card">
+                    <div class="quick-icon">🔍</div>
+                    <h3>Search Doctors</h3>
+                    <p>Find and view detailed information about registered radiologists</p>
+                </a>
+                <a href="../html/admin-users.html" class="quick-card">
+                    <div class="quick-icon">👥</div>
+                    <h3>Manage Users</h3>
+                    <p>Add, edit, remove users and manage system access permissions</p>
+                </a>
+                <a href="../html/admin-templates.html" class="quick-card">
+                    <div class="quick-icon">📋</div>
+                    <h3>Manage Templates</h3>
+                    <p>Create, edit and manage diagnostic report templates</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed System Overview -->
+    <section class="summary-stats">
+        <div class="container">
+            <h2>System Overview</h2>
+            
+            <!-- Main Stats Grid -->
+            <div class="stats-overview-grid">
+                <div class="stat-box stat-box-primary">
+                    <div class="stat-icon">👨‍⚕️</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Admins</p>
+                        <h3 id="homeAdmins">-</h3>
+                        <p class="stat-subtext">System administrators</p>
+                    </div>
+                </div>
+                <div class="stat-box stat-box-info">
+                    <div class="stat-icon">👤</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Users</p>
+                        <h3 id="homeUsers">-</h3>
+                        <p class="stat-subtext">Registered users</p>
+                    </div>
+                </div>
+                <div class="stat-box stat-box-warning">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-info">
+                        <p class="stat-label">Active Templates</p>
+                        <h3 id="homeTemplates">-</h3>
+                        <p class="stat-subtext">Available templates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Footer -->
+<footer class="admin-footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <img src="../imgs/logo_dr_echo.png" alt="Dr. Echo Logo" class="footer-logo">
+            <p>Advanced admin control center for managing Dr. Echo system operations, users, and templates.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Admin Resources</h4>
+            <ul>
+                <li><a href="../html/admin-waiting-list.html">Waiting List</a></li>
+                <li><a href="../html/admin-search-doctors.html">Search Doctors</a></li>
+                <li><a href="../html/admin-users.html">User Management</a></li>
+                <li><a href="../html/admin-templates.html">Template Management</a></li>
+                <li><a href="../html/index.html">Back to Main Site</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Support</h4>
+            <p>Admin Support: admin@drecho.com</p>
+            <p>System Status: <span class="status-badge-footer">Operational</span></p>
+            <p>Last Updated: Today</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="copyright">© 2025 Dr. Echo. All rights reserved. | Admin Portal</p>
+    </div>
+</footer>
+
+<!-- Firebase SDK -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+
+<script src="../js/admin-common.js"></script>
+<script src="../js/admin.js"></script>
+
+</body>
+
+</html>

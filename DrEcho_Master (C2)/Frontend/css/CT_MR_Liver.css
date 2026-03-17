@@ -1,0 +1,307 @@
+/* ==========================================================================
+   1. ROOT VARIABLES & BASE STYLES
+   ========================================================================== */
+
+:root {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --accent: #0b66a6;
+    --muted: #6b7280;
+    --border: #e6e9ee;
+    --field: #fbfdff;
+    --radius: 10px;
+    --pad: 18px;
+
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Global */
+html, body { height: 100%; }
+
+body {
+    margin: 0;
+    padding: 28px;
+    background: var(--bg);
+    color: #0f1720;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Main container */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+
+/* ==========================================================================
+   2. HEADER AREA
+   ========================================================================== */
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.report-meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Titles */
+h1 {
+    font-size: 20px;
+    margin: 0 0 8px 0;
+    color: var(--accent);
+}
+
+.meta-muted {
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+
+
+/* ==========================================================================
+   3. CARD COMPONENTS
+   ========================================================================== */
+
+.card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 0;
+    margin-bottom: 18px;
+    border: 1px solid rgba(11,102,166,0.06);
+    box-shadow: 0 6px 18px rgba(11,102,166,0.06);
+}
+
+.section-title {
+    background: var(--accent);
+    color: white;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    font-weight: 700;
+    font-size: 15px;
+    margin: 0;
+}
+
+.card-body {
+    padding: var(--pad);
+}
+
+
+
+/* ==========================================================================
+   4. GRID LAYOUT UTILITIES
+   ========================================================================== */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 18px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 18px;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* Responsive */
+@media (max-width: 880px) {
+    .grid,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* ==========================================================================
+   5. FORM ELEMENTS
+   ========================================================================== */
+
+label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: #15303b;
+    margin-bottom: 6px;
+}
+
+.input,
+select,
+textarea {
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--field);
+    font-size: 14px;
+    color: #12202b;
+    box-sizing: border-box;
+    transition: border-color .22s ease, box-shadow .22s ease;
+}
+
+textarea {
+    min-height: 78px;
+    resize: vertical;
+}
+
+.small-input { width: 130px; }
+.tiny { width: 200px; }
+
+.section-sub {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 13px;
+}
+
+
+
+/* ==========================================================================
+   6. RADIO & CHECKBOX GROUPS
+   ========================================================================== */
+
+.radio-row,
+.radio-group {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.checkbox-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    accent-color: var(--accent);
+    transform: scale(1.02);
+    margin-right: 6px;
+}
+
+
+
+/* ==========================================================================
+   7. UTILITY COMPONENTS
+   ========================================================================== */
+
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 14px 0;
+    border-radius: 2px;
+}
+
+.help-text {
+    color: var(--muted);
+    font-size: 13px;
+    margin: 6px 0 12px 0;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+
+/* ==========================================================================
+   8. BUTTON COMPONENTS
+   ========================================================================== */
+
+.btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-small {
+    background: #e6eef7;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-large {
+    padding: 14px 26px;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+
+
+/* ==========================================================================
+   9. OBSERVATION BLOCKS
+   ========================================================================== */
+
+.observation-block {
+    background: #fbfdff;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 2.5px solid rgba(0, 0, 0, 0.06);
+}
+
+.observation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+
+
+/* ==========================================================================
+   10. VALIDATION STYLES
+   ========================================================================== */
+
+.missing {
+    border-color: #e02424 !important;
+    box-shadow: 0 0 0 4px rgba(224,36,36,0.06);
+}
+
+.fade-out {
+    transition: border-color .4s ease, box-shadow .4s ease;
+}
+
+
+
+/* ==========================================================================
+   11. SPECIAL LAYOUTS
+   ========================================================================== */
+
+.treatmentDateRow {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.treatmentDateRow .input {
+    flex: 1;
+}

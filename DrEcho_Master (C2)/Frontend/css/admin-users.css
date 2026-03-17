@@ -1,0 +1,164 @@
+/* Admin Users Page Styles */
+
+/* Users Section */
+.users-container {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.users-toolbar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Users Table */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table thead {
+    background: #f5f5f5;
+}
+
+.users-table th {
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
+    color: #263238;
+    font-size: 13px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.users-table td {
+    padding: 14px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #757575;
+    font-size: 14px;
+}
+
+.users-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.users-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-active {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-rejected {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+/* Action Buttons */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+.action-btn.edit {
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+.action-btn.edit:hover {
+    background: #BBDEFB;
+}
+
+.action-btn.delete {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.action-btn.delete:hover {
+    background: #FFCDD2;
+}
+
+/* Responsive Design for Users */
+@media (max-width: 768px) {
+    .users-toolbar {
+        flex-direction: column;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .users-table {
+        font-size: 12px;
+    }
+
+    .users-table th {
+        padding: 10px;
+    }
+
+    .users-table td {
+        padding: 10px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+    }
+}
+
+/* Reauth modal */
+#reauthModal {
+    display: none;                
+    position: fixed;
+    inset: 0;                    
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+#reauthModal.show, 
+#reauthModal[style*="display: block"] {
+    display: flex !important;    
+}
+
+#reauthModal .modal-content {
+    margin: 0 auto;
+    max-width: 420px;
+    width: 90%;
+}

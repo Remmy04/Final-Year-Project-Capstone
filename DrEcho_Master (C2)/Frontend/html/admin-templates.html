@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Templates | Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/admin-base.css">
+    <link rel="stylesheet" href="../css/admin-templates.css">
+</head>
+
+<body>
+<div class="container">
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../html/admin.html" class="nav-link">Home</a></li>
+                <li><a href="../html/admin-waiting-list.html" class="nav-link">Waiting List</a></li>
+                <li><a href="../html/admin-search-doctors.html" class="nav-link">Search Doctors</a></li>
+                <li><a href="../html/admin-users.html" class="nav-link">Manage Users</a></li>
+                <li><a href="../html/admin-templates.html" class="nav-link">Manage Templates</a></li>
+            </ul>
+
+            <a id="navLogout" href="../html/logout.html" class="auth-button">Logout</a>
+        </nav>
+    </header>
+</div>
+
+<!-- Manage Templates View -->
+<div class="admin-view active">
+    <section class="admin-section">
+        <div class="container">
+            <div class="admin-header">
+                <h1>Manage Templates</h1>
+                <p class="subtitle">Create and manage report templates</p>
+            </div>
+
+            <div class="templates-container">
+                <!-- Templates Toolbar -->
+                <div class="templates-toolbar">
+                    <input type="text" id="templateSearchInput" placeholder="🔍 Search templates by name..." class="search-input">
+                    <button class="btn primary btn-small" onclick="openAddTemplateModal()">+ Add New Template</button>
+                </div>
+
+                <!-- Templates Grid -->
+                <div class="templates-grid" id="templatesGrid">
+                    <!-- Templates will be populated by JavaScript -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="templatesEmptyState" class="empty-state" style="display: none;">
+                    <p>No templates found</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Add/Edit Template Modal -->
+<div id="templateModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="templateModalTitle">Add New Template</h2>
+            <button class="close-btn" onclick="closeTemplateModal()">&times;</button>
+        </div>
+        <form id="templateForm" onsubmit="saveTemplate(event)">
+            <div class="form-group">
+                <label for="templateName">Template Name *</label>
+                <input type="text" id="templateName" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Modalities *</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="modalities" value="ct"> CT Scans</label>
+                    <label><input type="checkbox" name="modalities" value="mri"> MRI Scans</label>
+                    <label><input type="checkbox" name="modalities" value="ultrasound"> Ultrasound</label>
+                    <label><input type="checkbox" name="modalities" value="xray"> X-Ray</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="templateSpecialty">Specialty *</label>
+                <input type="text" id="templateSpecialty" name="specialty" placeholder="e.g., Cardiology" required>
+            </div>
+            <div class="form-group">
+                <label for="templateStatus">Status *</label>
+                <select id="templateStatus" name="status" required>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="draft">Draft</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="templateDescription">Description</label>
+                <textarea id="templateDescription" name="description" rows="4" placeholder="Template description..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="templateVisible">
+                    <input type="checkbox" id="templateVisible" name="isVisible" checked> Visible to Radiologists
+                </label>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn secondary" onclick="closeTemplateModal()">Cancel</button>
+                <button type="submit" class="btn primary">Save Template</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content modal-small">
+        <div class="modal-header">
+            <h2>Confirm Delete</h2>
+            <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+        </div>
+        <p id="deleteMessage">Are you sure you want to delete this item?</p>
+        <div class="modal-actions">
+            <button type="button" class="btn secondary" onclick="closeDeleteModal()">Cancel</button>
+            <button type="button" class="btn danger" onclick="confirmDelete()">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+
+<script src="../js/admin-common.js"></script>
+<script src="../js/admin-templates.js"></script>
+
+<!-- Footer -->
+<footer class="admin-footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <img src="../imgs/logo_dr_echo.png" alt="Dr. Echo Logo" class="footer-logo">
+            <p>Advanced admin control center for managing Dr. Echo system operations, users, and templates.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Admin Resources</h4>
+            <ul>
+                <li><a href="../html/admin-waiting-list.html">Waiting List</a></li>
+                <li><a href="../html/admin-search-doctors.html">Search Doctors</a></li>
+                <li><a href="../html/admin-users.html">User Management</a></li>
+                <li><a href="../html/admin-templates.html">Template Management</a></li>
+                <li><a href="../html/index.html">Back to Main Site</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Support</h4>
+            <p>Admin Support: admin@drecho.com</p>
+            <p>System Status: <span class="status-badge-footer">Operational</span></p>
+            <p>Last Updated: Today</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="copyright">© 2025 Dr. Echo. All rights reserved. | Admin Portal</p>
+    </div>
+</footer>
+
+</body>
+
+</html>

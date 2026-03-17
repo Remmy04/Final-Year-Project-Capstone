@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo AI ChatBot | Dr. Echo</title>
+
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/id_generator.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html">Report Templates</a></li>
+                <li><a href="../html/about.html">About us</a></li>
+                <li><a href="../html/chatbot.html" class="active">Echo</a></li>
+                <li><a href="../html/profile.html">Profile</a></li>
+            </ul>
+
+            <a id="navLogin" href="../html/login.html" class="auth-button">Register / Log in</a>
+            <a id="navLogout" href="../html/logout.html" class="auth-button" style="display:none;">Logout</a>
+        </nav>
+    </header>
+</div>
+
+<section class="chatbot-section">
+    <div class="container">
+        <h1 class="chatbot-title">Echo AI ChatBot</h1>
+        <p class="chatbot-subtitle">Your intelligent assistant for structured radiology reporting.</p>
+
+        <div class="chatbot-box" id="chat-ui-container">
+            
+            <div id="chat-window">
+                <div id="messages">
+                    </div>
+            </div>
+          
+            <div class="input-row">
+                <textarea id="message-input" placeholder="Ex: MRI Liver for John Doe, 45 Male, DOB 12 Jan 1980..."></textarea>
+                <button id="send-btn">Send</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <img src="../imgs/logo_dr_echo.png" alt="Dr. Echo Logo">
+            <p>Advanced structured reporting solutions for radiologists and healthcare facilities.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="../html/index.html">Home</a></li>
+                <li><a href="../html/template.html">Report Templates</a></li>
+                <li><a href="../html/chatbot.html">Echo</a></li>
+                <li><a href="../html/about.html">About Us</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Get in Touch with Us</h4>
+            <p>support@drecho.com</p>
+            <p>+1 (555) 123-4567</p>
+        </div>
+    </div>
+    <p class="copyright">© 2025 Dr. Echo. All rights reserved.</p>
+</footer>
+
+<script src="../js/chatbot.js"></script>
+
+<script>
+    // Simple auth toggle for nav buttons
+    firebase.auth().onAuthStateChanged((user) => {
+        const login = document.getElementById("navLogin");
+        const logout = document.getElementById("navLogout");
+
+        if (!login || !logout) return;
+
+        if (user) {
+            login.style.display = "none";
+            logout.style.display = "inline-block";
+        } else {
+            login.style.display = "inline-block";
+            logout.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | Dr. Echo</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/feedback.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <nav>
+                <div class="logo">
+                    <img src="../imgs/logo_dr_echo.png" alt="DR. ECHO Logo" class="logo-img">
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../html/index.html">Home</a></li>
+                    <li><a href="../html/template.html">Report Templates</a></li>
+                    <li><a href="../html/about.html">About us</a></li>
+                    <li><a href="../html/chatbot.html">Echo</a></li>
+                    <li><a href="../html/profile.html">Profile</a></li>
+                </ul>
+                <a id="navLogin" href="../html/login.html" class="auth-button">Register / Log in</a>
+                <a id="navLogout" href="../html/logout.html" class="auth-button" style="display:none;">Logout</a>
+            </nav>
+        </header>
+    </div>
+
+  <section class="feedback">
+    <div class="form-card">
+      <h2>We Value Your Feedback</h2>
+      <form id="feedbackForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+        <label for="rating">Overall Experience</label>
+        <select id="rating" name="rating" required>
+          <option value="">Select rating</option>
+          <option value="Excellent">Excellent</option>
+          <option value="Good">Good</option>
+          <option value="Average">Average</option>
+          <option value="Poor">Poor</option>
+        </select>
+
+        <label for="message">Feedback / Suggestions</label>
+        <textarea id="message" name="message" placeholder="Tell us what you think..." required></textarea>
+
+        <div class="button-group">
+          <button type="submit" class="submit-btn">Submit Feedback</button>
+          <button type="button" onclick="window.location.href='index.html'" class="btn secondary">Cancel</button>
+        </div>
+      </form>
+
+      <!-- Success Modal -->
+      <div id="successModal" class="modal-overlay" style="display:none;">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <h3 id="modalTitle">Thank you!</h3>
+          <p>Your feedback has been submitted.</p>
+          <div class="modal-actions">
+            <button id="modalOk" class="btn primary">OK</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login Required Modal -->
+      <div id="loginModal" class="modal-overlay" style="display:none;">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+          <h3 id="loginModalTitle">Login Required</h3>
+          <p>Please log in to submit feedback.</p>
+          <div class="modal-actions">
+            <button onclick="window.location.href='login.html'" class="btn primary">Go to Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Firebase Compat SDK -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+
+  <script src="../js/firebase-config.js"></script>
+  <script>
+    // Handle nav auth state and feedback form
+    document.addEventListener('DOMContentLoaded', () => {
+      const feedbackForm = document.getElementById("feedbackForm");
+      const successModal = document.getElementById('successModal');
+      const modalOk = document.getElementById('modalOk');
+      const navLogin = document.getElementById('navLogin');
+      const navLogout = document.getElementById('navLogout');
+
+      // Wait for auth state
+      firebase.auth().onAuthStateChanged(async (user) => {
+        // Update nav buttons
+        if (navLogin && navLogout) {
+          if (user) {
+            navLogin.style.display = "none";
+            navLogout.style.display = "inline-block";
+          } else {
+            navLogin.style.display = "inline-block";
+            navLogout.style.display = "none";
+          }
+        }
+
+        if (!user) {
+          // Not logged in -> redirect to login and returnTo this page
+          const returnTo = encodeURIComponent('feedback.html');
+          window.location.href = `login.html?returnTo=${returnTo}`;
+          return;
+        }
+
+        // User is logged in - prefill name/email if available
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+
+        // Try to get profile data from Firestore if available
+        try {
+          const snap = await db.collection('users').doc(user.uid).get();
+          const data = snap.exists ? snap.data() : {};
+          if (nameInput) nameInput.value = data.fullName || user.displayName || '';
+          if (emailInput) emailInput.value = data.email || user.email || '';
+        } catch (err) {
+          // Fallback to auth profile
+          if (nameInput) nameInput.value = user.displayName || '';
+          if (emailInput) emailInput.value = user.email || '';
+        }
+
+        // Attach submit handler
+        if (feedbackForm) {
+          feedbackForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            try {
+              // Generate custom feedback ID using transaction counter (F0001, F0002, etc.)
+              const counterRef = db.collection("counters").doc("feedback_counter");
+              
+              const feedbackId = await db.runTransaction(async (transaction) => {
+                const doc = await transaction.get(counterRef);
+                let next = 1;
+                if (doc.exists) {
+                  next = doc.data().nextId || 1;
+                }
+                const id = "F" + String(next).padStart(4, "0");
+                transaction.set(counterRef, { nextId: next + 1 }, { merge: true });
+                return id;
+              });
+
+              // Collect data
+              const payload = {
+                feedbackId: feedbackId,
+                uid: user.uid,
+                name: document.getElementById('name').value || '',
+                email: document.getElementById('email').value || '',
+                rating: document.getElementById('rating').value || '',
+                message: document.getElementById('message').value || '',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              };
+
+              // Save with custom feedback ID as document name
+              await db.collection('feedbacks').doc(feedbackId).set(payload);
+              feedbackForm.reset();
+              if (successModal) successModal.style.display = 'flex';
+            } catch (err) {
+              alert('Failed to submit feedback: ' + err.message);
+            }
+          });
+        }
+
+        // When user clicks OK, close modal and go to index (user remains logged in)
+        if (modalOk) {
+          modalOk.addEventListener('click', function () {
+            if (successModal) successModal.style.display = 'none';
+            window.location.href = '../html/index.html';
+          });
+        }
+
+      });
+    });
+  </script>
+</body>
+</html>

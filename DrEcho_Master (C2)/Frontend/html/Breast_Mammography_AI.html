@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Breast Mammography Report (AI Assisted)</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/Breast_Mammography_AI.css">
+</head>
+
+<body>
+<div class="container">
+  <header class="header-row">
+    <h1 id="reportTitle">Breast Mammography Report</h1>
+    <div class="report-meta">
+      <label for="reportDate">Report Date & Time</label>
+      <input id="reportDate" class="input tiny" type="datetime-local" />
+    </div>
+  </header>
+
+  <section class="card" id="patient-info">
+    <div class="section-title">1. Patient Demographics & Clinical Information</div>
+    <div class="card-body">
+      <div class="grid">
+        <div>
+          <label for="patientName" style="margin-top:10px;">Patient Name</label>
+          <input id="patientName" class="input" type="text" />
+
+          <label for="dob" style="margin-top:10px;">Date of Birth</label>
+          <input id="dob" class="input" type="date" />
+
+          <label for="age" style="margin-top:10px;">Age</label>
+          <input id="age" class="input" type="number" min="0" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+        
+          <label for="sex" style="margin-top:10px;">Gender</label>
+            <select id="sex" class="input">
+                <option value="">—</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div>
+          <label for="patientId" style="margin-top:10px;">Patient ID</label>
+          <input id="patientId" class="input" type="text" />
+
+          <label for="reportId" style="margin-top:10px;">Report ID</label>
+          <input id="reportId" class="input" type="text" />
+
+          <label for="referrer" style="margin-top:10px;">Referring Physician</label>
+          <input id="referrer" class="input" type="text" />
+
+          <label for="primaryIndication" style="margin-top:10px;">Primary Indication</label>
+          <select id="primaryIndication" class="input">
+            <option value="">—</option>
+            <option>Screening</option>
+            <option>Diagnostic</option>
+            <option>Follow-up for known lumps</option>
+            <option>Post-Surgical follow-up</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="symptomsBlock" style="display:none; margin-top:12px;">
+        <label>Specific Symptoms</label>
+        <div class="grid-3">
+          <label><input type="checkbox" name="specificSymptoms" value="Palpable lump" /> Palpable lump</label>
+          <label><input type="checkbox" name="specificSymptoms" value="Breast pain" /> Breast pain</label>
+          <label><input type="checkbox" name="specificSymptoms" value="Nipple discharge" /> Nipple discharge</label>
+          <label><input type="checkbox" name="specificSymptoms" value="Skin retraction/changes" /> Skin retraction/changes</label>
+          <label><input type="checkbox" name="specificSymptoms" value="Nipple inversion" /> Nipple inversion</label>
+        </div>
+      </div>
+
+      <div id="postSurgicalBlock" style="display:none; margin-top:12px;">
+        <label for="priorTreatmentSurgery">Prior Treatment/Surgery</label>
+        <input id="priorTreatmentSurgery" class="input" type="text" placeholder="e.g. Left BCS, Right Mastectomy, NAC" />
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="procedure">
+    <div class="section-title">2. Procedure & Comparison Studies</div>
+    <div class="card-body">
+      <label>Modality Evaluated</label>
+      <div class="radio-row">
+        <label><input type="radio" name="modalityEvaluated" value="Mammogram Only"> Mammogram Only</label>
+        <label><input type="radio" name="modalityEvaluated" value="Ultrasound Only"> Ultrasound Only</label>
+        <label><input type="radio" name="modalityEvaluated" value="Mammogram + Ultrasound"> Mammogram + Ultrasound</label>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Is a Comparison Study Available?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="comparisonAvailable" value="Yes"> Yes</label>
+          <label><input type="radio" name="comparisonAvailable" value="No"> No</label>
+        </div>
+      </div>
+
+      <div id="comparisonBlock" style="display:none; margin-top:12px;">
+        <label for="priorStudyModality">Modality of Prior Study</label>
+        <select id="priorStudyModality" class="input">
+          <option value="">—</option>
+          <option>Mammogram</option>
+          <option>Ultrasound</option>
+          <option>MRI</option>
+        </select>
+
+        <label for="priorStudyDate" style="margin-top:10px;">Date of Prior Study</label>
+        <input id="priorStudyDate" class="input" type="date" />
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="mammographyFindings">
+    <div class="section-title">3. Mammography Findings</div>
+    <div class="card-body">
+      <div class="section-note">Skipped automatically when Modality Evaluated = Ultrasound Only.</div>
+
+      <label>Breast Parenchymal Density</label>
+      <div class="radio-row wrap">
+        <label><input type="radio" name="density" value="Almost entirely fatty"> Almost entirely fatty</label>
+        <label><input type="radio" name="density" value="Scattered fibroglandular density"> Scattered fibroglandular density</label>
+        <label><input type="radio" name="density" value="Heterogeneously dense"> Heterogeneously dense</label>
+        <label><input type="radio" name="density" value="Extremely dense"> Extremely dense</label>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Are there any masses present?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="massPresent" value="Yes"> Yes</label>
+          <label><input type="radio" name="massPresent" value="No"> No</label>
+        </div>
+      </div>
+
+      <div id="massBlock" style="display:none; margin-top:12px;">
+        <label for="massCount">Number of masses</label>
+        <input id="massCount" class="input" type="number" min="1" max="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+        <div id="massContainer"></div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Are there any calcifications present?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="calcificationsPresent" value="Yes"> Yes</label>
+          <label><input type="radio" name="calcificationsPresent" value="No"> No</label>
+        </div>
+      </div>
+
+      <div id="calcificationBlock" style="display:none; margin-top:12px;">
+        <label for="calcificationMorphology">Morphology</label>
+        <select id="calcificationMorphology" class="input">
+          <option value="">—</option>
+          <option>Skin</option><option>Vascular</option><option>Coarse</option><option>Round</option><option>Punctate</option>
+          <option>Amorphous</option><option>Coarse heterogeneous</option><option>Fine pleomorphic</option><option>Fine linear/branching</option>
+        </select>
+
+        <label for="calcificationDistribution" style="margin-top:10px;">Distribution</label>
+        <select id="calcificationDistribution" class="input">
+          <option value="">—</option>
+          <option>Diffuse</option><option>Regional</option><option>Grouped/Clustered</option>
+          <option>Linear</option><option>Segmental</option><option>Scattered</option>
+        </select>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Architectural Distortion / Asymmetries</label>
+        <div class="radio-row">
+          <label><input type="radio" name="architecturalDistortion" value="Yes"> Yes</label>
+          <label><input type="radio" name="architecturalDistortion" value="No"> No</label>
+        </div>
+      </div>
+
+      <div id="architecturalDescriptionBlock" style="display:none; margin-top:12px;">
+        <label for="architecturalDescription">Description / Etiology</label>
+        <textarea id="architecturalDescription" class="input" rows="3" placeholder="e.g. In keeping with previous surgery, ..."></textarea>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Other Mammographic Findings</label>
+        <div class="grid-3">
+          <label><input type="checkbox" name="otherMammographicFindings" value="Reduction in breast volume" /> Reduction in breast volume</label>
+          <label><input type="checkbox" name="otherMammographicFindings" value="Skin thickening" /> Skin thickening</label>
+          <label><input type="checkbox" name="otherMammographicFindings" value="Nipple retraction" /> Nipple retraction</label>
+          <label><input type="checkbox" name="otherMammographicFindings" value="Tissue marker in situ" /> Tissue marker in situ</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="ultrasoundFindings">
+    <div class="section-title">4. Ultrasound Findings</div>
+    <div class="card-body">
+      <div class="section-note">Skipped automatically when Modality Evaluated = Mammogram Only.</div>
+
+      <h3 class="section-sub-title">Part 4A: Right Breast Ultrasound Evaluation</h3>
+      <label for="rightBackgroundEchotexture">Background Echotexture</label>
+      <select id="rightBackgroundEchotexture" class="input">
+        <option value="">—</option><option>Normal fibroglandular tissue</option><option>Heterogeneous</option><option>Scar tissue</option>
+      </select>
+
+      <div style="margin-top:10px;">
+        <label>Any Solid Lesions (Right)?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="rightSolidLesions" value="Yes"> Yes</label>
+          <label><input type="radio" name="rightSolidLesions" value="No"> No</label>
+        </div>
+      </div>
+      <div id="rightLesionBlock" style="display:none; margin-top:10px;">
+        <label for="rightLesionCount">Number of lesions</label>
+        <input id="rightLesionCount" class="input" type="number" min="1" max="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+        <div id="rightLesionContainer"></div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label>Any Cysts (Right)?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="rightCysts" value="Yes"> Yes</label>
+          <label><input type="radio" name="rightCysts" value="No"> No</label>
+        </div>
+      </div>
+      <div id="rightCystBlock" style="display:none; margin-top:10px;">
+        <label for="rightCystCount">Number of cysts</label>
+        <input id="rightCystCount" class="input" type="number" min="1" max="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+        <div id="rightCystContainer"></div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label>Resolved / Non-Visualised Prior Lesions (Right)?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="rightResolved" value="Yes"> Yes</label>
+          <label><input type="radio" name="rightResolved" value="No"> No</label>
+        </div>
+      </div>
+      <div id="rightResolvedBlock" style="display:none; margin-top:10px;">
+        <label for="rightResolvedDetails">Details</label>
+        <input id="rightResolvedDetails" class="input" type="text" placeholder="e.g. Previously seen lesion at 8 o'clock is no longer visualised." />
+      </div>
+
+      <label style="margin-top:10px;">Other Findings (Right Breast)</label>
+      <div class="grid-3">
+        <label><input type="checkbox" name="rightOtherFindings" value="Prominent/Dilated ducts" /> Prominent/Dilated ducts</label>
+        <label><input type="checkbox" name="rightOtherFindings" value="Seroma" /> Seroma</label>
+        <label><input type="checkbox" name="rightOtherFindings" value="Tissue marker in situ" /> Tissue marker in situ</label>
+      </div>
+
+      <h3 class="section-sub-title">Part 4B: Left Breast Ultrasound Evaluation</h3>
+      <label for="leftBackgroundEchotexture">Background Echotexture</label>
+      <select id="leftBackgroundEchotexture" class="input">
+        <option value="">—</option><option>Normal fibroglandular tissue</option><option>Heterogeneous</option><option>Scar tissue</option>
+      </select>
+
+      <div style="margin-top:10px;">
+        <label>Any Solid Lesions (Left)?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="leftSolidLesions" value="Yes"> Yes</label>
+          <label><input type="radio" name="leftSolidLesions" value="No"> No</label>
+        </div>
+      </div>
+      <div id="leftLesionBlock" style="display:none; margin-top:10px;">
+        <label for="leftLesionCount">Number of lesions</label>
+        <input id="leftLesionCount" class="input" type="number" min="1" max="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+        <div id="leftLesionContainer"></div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label>Any Cysts (Left)?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="leftCysts" value="Yes"> Yes</label>
+          <label><input type="radio" name="leftCysts" value="No"> No</label>
+        </div>
+      </div>
+      <div id="leftCystBlock" style="display:none; margin-top:10px;">
+        <label for="leftCystCount">Number of cysts</label>
+        <input id="leftCystCount" class="input" type="number" min="1" max="10" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+        <div id="leftCystContainer"></div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label>Resolved / Non-Visualised Prior Lesions (Left)?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="leftResolved" value="Yes"> Yes</label>
+          <label><input type="radio" name="leftResolved" value="No"> No</label>
+        </div>
+      </div>
+      <div id="leftResolvedBlock" style="display:none; margin-top:10px;">
+        <label for="leftResolvedDetails">Details</label>
+        <input id="leftResolvedDetails" class="input" type="text" placeholder="e.g. Previously seen lesion at 8 o'clock is no longer visualised." />
+      </div>
+
+      <label style="margin-top:10px;">Other Findings (Left Breast)</label>
+      <div class="grid-3">
+        <label><input type="checkbox" name="leftOtherFindings" value="Prominent/Dilated ducts" /> Prominent/Dilated ducts</label>
+        <label><input type="checkbox" name="leftOtherFindings" value="Seroma" /> Seroma</label>
+        <label><input type="checkbox" name="leftOtherFindings" value="Tissue marker in situ" /> Tissue marker in situ</label>
+      </div>
+
+      <h3 class="section-sub-title">Part 4C: Chest Wall Ultrasound Evaluation</h3>
+      <label>Evaluate Chest Wall</label>
+      <div class="radio-row">
+        <label><input type="checkbox" name="chestWallSides" value="Right Chest Wall" /> Right Chest Wall</label>
+        <label><input type="checkbox" name="chestWallSides" value="Left Chest Wall" /> Left Chest Wall</label>
+      </div>
+
+      <div id="chestWallFindingsBlock" style="display:none; margin-top:10px;">
+        <label>Chest Wall Findings</label>
+        <div class="radio-row">
+          <label><input type="radio" name="chestWallFindings" value="No solid or cystic lesion"> No solid or cystic lesion</label>
+          <label><input type="radio" name="chestWallFindings" value="Lesion present"> Lesion present</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="axillaryNodes">
+    <div class="section-title">5. Axillary Lymph Nodes</div>
+    <div class="card-body">
+      <label>Significant Axillary Lymphadenopathy?</label>
+      <div class="radio-row">
+        <label><input type="radio" name="lymphadenopathy" value="Yes"> Yes</label>
+        <label><input type="radio" name="lymphadenopathy" value="No"> No</label>
+      </div>
+
+      <div id="lymphNodeBlock" style="display:none; margin-top:12px;">
+        <label for="lymphNodeSide">Side</label>
+        <select id="lymphNodeSide" class="input">
+          <option value="">—</option><option>Right</option><option>Left</option><option>Bilateral</option>
+        </select>
+
+        <label style="margin-top:10px;">Fatty Hilum</label>
+        <div class="radio-row">
+          <label><input type="radio" name="fattyHilum" value="Preserved"> Preserved</label>
+          <label><input type="radio" name="fattyHilum" value="Lost"> Lost</label>
+        </div>
+
+        <label for="corticalThickness" style="margin-top:10px;">Cortical Thickness (cm)</label>
+        <input id="corticalThickness" class="input" type="number" min="0" step="0.1" />
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="impression">
+    <div class="section-title">6. Impression & Recommendations</div>
+    <div class="card-body">
+      <label for="impressionSummary">Impression Summary</label>
+      <textarea id="impressionSummary" class="input" rows="4" placeholder="e.g., Post surgical changes left breast. Bilateral benign breast calcifications."></textarea>
+
+      <label for="recommendation">Recommendations / Follow-up</label>
+      <textarea id="recommendation" class="input" rows="3" placeholder="e.g., Suggest HPE correlation or Routine screening"></textarea>
+
+      <label for="biradsCategory">Final BI-RADS Category</label>
+      <select id="biradsCategory" class="input">
+        <option value="">—</option>
+        <option>BIRADS 0: Need additional imaging evaluation</option>
+        <option>BIRADS 1: Normal mammogram/ultrasound</option>
+        <option>BIRADS 2: Benign finding that does not require further imaging</option>
+        <option>BIRADS 3: Probably benign; requires short term follow-up imaging</option>
+        <option>BIRADS 4: Suspicious abnormality; biopsy should be considered</option>
+        <option>BIRADS 5: Highly suggestive of malignancy</option>
+        <option>BIRADS 6: Known biopsy-proven malignancy</option>
+      </select>
+    </div>
+  </section>
+
+  <div class="preview-action-container" style="text-align: left; margin: 30px 0; padding: 25px; background-color: #f4f7f6; border-radius: 8px; border: 1px solid #dce4e0; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <h3 style="margin-top:0; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+      <span>Report Preview</span>
+      <button id="previewBtn" class="btn" style="background-color: #3498db; color: white; padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer; border: none; transition: background-color 0.3s;">Generate / Refresh Preview</button>
+    </h3>
+    <p style="margin-bottom: 15px; color: #7f8c8d; font-size: 0.95rem;">Review the drafted clinical text below. You can click directly inside the document box to make manual edits before finalizing.</p>
+    
+    <div id="previewText" class="preview-text-box" contenteditable="true" style="display: none; background-color: #fff; border: 1px solid #bdc3c7; padding: 40px; min-height: 250px; font-family: 'Times New Roman', Times, serif; font-size: 1.15rem; line-height: 1.6; color: #000; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+      </div>
+  </div>
+
+  <section class="card" id="signOff">
+    <div class="section-title">7. Sign Off</div>
+    <div class="card-body">
+      <label for="createdBy">Report Created by</label>
+      <input id="createdBy" class="input" type="text" />
+
+      <label for="approvedBy">Approved by</label>
+      <input id="approvedBy" class="input" type="text" />
+
+      <label style="margin-top:10px;">Standard Disclaimer</label>
+      <p class="muted">NOTE: Mammography and other imaging investigations may not reveal 10-15% of cancers. In all cases the clinical features should be taken into account for management decisions such as biopsy and excision, despite the mammogram appearing normal.</p>
+    </div>
+  </section>
+
+  <div style="text-align:center; margin:18px 0 40px 0;">
+    <button id="saveBtn" class="btn btn-large">Generate Patient Report</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/id_generator.js"></script>
+<script src="../js/Breast_Mammography_prefill.js"></script>
+<script src="../js/Breast_Mammography.js"></script>
+<script src="../js/Breast_Mammography_report_generator.js"></script>
+</body>
+</html>

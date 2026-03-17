@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Dr. Echo</title>
+
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/id_generator.js"></script>
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="auth-box">
+
+            <h2 class="auth-title">Create an Account</h2>
+            <p class="auth-subtitle">Join us today</p>
+
+                <form id="registerForm">
+
+                <!-- Progress indicator -->
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                    <div class="steps">
+                    <div class="step active" data-step="1">1. Account</div>
+                    <div class="step" data-step="2">2. Professional Info</div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Account Creation -->
+                <div id="step1" class="form-step active">
+                    <label class="label">Full Name</label>
+                    <input type="text" name="fullname" class="input-field" required>
+
+                    <label class="label">Email</label>
+                    <input type="email" name="email" class="input-field" required>
+
+                    <label class="label">Password</label>
+                    <input type="password" name="password" class="input-field" id="passwordInput" required>
+
+                    <div class="password-info">
+                    <p class="small-note">Password must contain at least 8 characters, including uppercase, lowercase, number, and special character.</p>
+                    <ul class="pw-checklist" id="pwChecklist">
+                        <li id="pw-length" class="unchecked">✓ At least 8 characters</li>
+                        <li id="pw-lower" class="unchecked">✓ Lowercase letter (a–z)</li>
+                        <li id="pw-upper" class="unchecked">✓ Uppercase letter (A–Z)</li>
+                        <li id="pw-number" class="unchecked">✓ Number (0–9)</li>
+                        <li id="pw-special" class="unchecked">✓ Special character (e.g. !@#$%)</li>
+                        <li id="pw-match" class="unchecked">✓ Passwords match</li>
+                    </ul>
+                    <div class="help-text" id="pwHelp">Create a strong password to secure your account.</div>
+                    </div>
+
+                    <label class="label">Confirm Password</label>
+                    <input type="password" name="confirm_password" class="input-field" id="confirmInput" required>
+
+                    <button type="button" id="nextBtn" class="btn-submit">Next</button>
+
+                </div>
+
+                <!-- Step 2: Professional Details -->
+                <div id="step2" class="form-step">
+
+                    <label class="label">Graduated From</label>
+                    <input type="text" name="graduatedFrom" class="input-field" required>
+
+                    <label class="label">Place of Practice</label>
+                    <input type="text" name="placeOfPractice" class="input-field" required>
+
+                    <label class="label">Full Registration Number</label>
+                    <input type="text" name="fullRegistration" class="input-field" required>
+
+                    <label class="label">Provisional Registration</label>
+                    <input type="text" name="provisionalRegistration" class="input-field">
+
+                    <label class="label">TPC Number</label>
+                    <input type="text" name="tpcNumber" class="input-field">
+
+                    <div class="button-group">
+                    <button type="submit" class="btn-submit">Submit for Verification</button>
+                    </div>
+                </div>
+
+                <!-- Success Pending Message -->
+                <div id="successMessage" class="form-step success-msg" style="display: none;">
+                    <h2>Thank you for your registration at Dr. Echo.</h2>
+                    <p>Please wait for <strong>1-2 business days</strong> for verification.</p>
+                    <button type="button" class="btn-submit" onclick="window.location.href='../html/login.html'">Go to Login</button>
+                </div>
+
+                </form>
+        </div>
+    </div>
+
+    <!-- Firebase Compat -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/register.js"></script>
+
+</body>
+</html>
